@@ -86,10 +86,10 @@ const renderContainer = (comments) => {
     mainAuthorization.addEventListener('click', (event) => {
       display = 'login';
       renderContainer(comments, containerElement)
+      initLoginListener();
       event.stopPropagation();
     })
   }
-
   function addComment() {
     const nameElement = document.getElementById("input-name");
     const textElement = document.getElementById("add-text");

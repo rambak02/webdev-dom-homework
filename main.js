@@ -6,6 +6,7 @@ import {
   renderRegFormComponent,
   renderMainRegFormComponent,
 } from "./login-company.js";
+import { format } from "date-fns";
 
 const containerElement = document.getElementById("container");
 
@@ -58,8 +59,6 @@ const renderContainer = (comments) => {
     const textElement = document.getElementById("add-text");
     const nameElement = document.getElementById("input-name");
     buttonElement.addEventListener("click", () => {
-      textElement.classList.remove("error");
-      nameElement.classList.remove("error");
 
       buttonElement.disabled = true;
       buttonElement.textContent = "Отправляем...";
@@ -122,9 +121,7 @@ function getPromise() {
     const appComments = responseData.comments.map((comment) => {
       return {
         name: comment.author.name,
-        comDate: new Date(comment.date)
-          .toLocaleString("ru-RU", options)
-          .replace(",", ""),
+        comDate: format(new Date(comment.date), "yyy-mm-dd hh.mm.ss"),
         comText: comment.text,
         likes: comment.likes,
         isLiked: false,
@@ -256,14 +253,4 @@ const initRegisterListener = () => {
   }
   getComments();
 };
-const date = new Date();
-const options = {
-  year: "2-digit",
-  month: "2-digit",
-  day: "2-digit",
-  hour: "2-digit",
-  minute: "2-digit",
-  hourCycle: "h23",
-};
-
 renderContainer(comments, containerElement, token);
